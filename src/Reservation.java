@@ -20,6 +20,9 @@ public class Reservation {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return  "Guest: " + guest + "\n" +
                 "Room: " + room.getRoomNumber() + "\n" +
+                "Has seaview ? " + room.isSeaView() + "\n" +
+                "Has balcony ? " + room.isHasBalcony() + "\n" +
+                "Price : " + room.getRoomPrice() + "\n" +
                 "From: " + startDate.format(formatter) +"\n" +
                 "To: " + endDate.format(formatter) + "\n";
     }
