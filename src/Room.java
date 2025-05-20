@@ -9,7 +9,7 @@ public class Room {
     private boolean hasBalcony;
     private boolean seaView;
     private int roomPrice;
-    private List assignedGuest = new ArrayList<>();
+
 
 
     public Room(int roomNumber, int numberOfBeds, boolean hasBalcony, boolean seaView, int roomPrice) {

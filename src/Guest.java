@@ -38,7 +38,7 @@ public class Guest {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
         return getFirstName() + " " + getSecondName() + " " + "(" + getBirthDate().format(formatter)+ ")";
     }
 }
