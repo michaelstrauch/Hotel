@@ -28,7 +28,7 @@ public class BookingManager {
     }
 
     public void clearBookings() {
-            reservations.clear();
+        reservations.clear();
     }
 
     public int getNumberOfWorkingBookings() {
@@ -52,6 +52,39 @@ public class BookingManager {
         return (double) averageGuests / reservations.size();
 
     }
+
+    public int getTopNHolidayBookings() {
+        int holidayBookings = 0;
+        for (Booking holidays: reservations) {
+            if (! holidays.isWorkBooking() && holidayBookings <8) {
+                System.out.println(holidays);
+                holidayBookings++;
+            }
+        }
+        return holidayBookings;
+    }
+
+    public void printGuestStatistics() {
+        int singleGuest = 0;
+        int doubleGuest = 0;
+        int multipleGuest = 0;
+        for (Booking statistics : reservations) {
+            if (statistics.getGuestCount() == 1) {
+                singleGuest++;
+            }
+            if (statistics.getGuestCount() == 2) {
+                doubleGuest++;
+            }
+            if (statistics.getGuestCount() > 2) {
+                multipleGuest++;
+            }
+        }
+        System.out.println("Single guest reservations: " + singleGuest);
+        System.out.println("Double guests reservations: " + doubleGuest);
+        System.out.println("Multiple guests reservations: "+ multipleGuest);
+    }
+
+
 
 
 }

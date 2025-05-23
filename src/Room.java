@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +9,11 @@ public class Room {
     private int numberOfBeds;
     private boolean hasBalcony;
     private boolean seaView;
-    private int roomPrice;
+    private BigDecimal roomPrice;
 
 
 
-    public Room(int roomNumber, int numberOfBeds, boolean hasBalcony, boolean seaView, int roomPrice) {
+    public Room(int roomNumber, int numberOfBeds, boolean hasBalcony, boolean seaView, BigDecimal roomPrice) {
         this.roomNumber = roomNumber;
         this.numberOfBeds = numberOfBeds;
         this.hasBalcony = hasBalcony;
@@ -52,11 +53,11 @@ public class Room {
         this.seaView = seaView;
     }
 
-    public int getRoomPrice() {
+    public BigDecimal getRoomPrice() {
         return roomPrice;
     }
 
-    public void setRoomPrice(int roomPrice) {
+    public void setRoomPrice(BigDecimal roomPrice) {
         this.roomPrice = roomPrice;
     }
 

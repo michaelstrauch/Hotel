@@ -1,5 +1,7 @@
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +46,24 @@ public class Booking {
 
         }
         return guestNames;
+    }
+
+    private long totalNightsCalculation() {
+        return ChronoUnit.DAYS.between(startDate, endDate);
+    }
+
+    public long getBookingLength() {
+        long bookedNights = ChronoUnit.DAYS.between(startDate, endDate);
+        System.out.println("Total nights: "+ bookedNights);
+        return bookedNights;
+    }
+
+    public BigDecimal getTotalPrice() {
+        long nights = totalNightsCalculation() ;
+        BigDecimal nightsBD = BigDecimal.valueOf(nights);
+        BigDecimal totalPrice = room.getRoomPrice().multiply(nightsBD);
+        System.out.println("Price for this reservation is: "+ totalPrice +" Currency");
+        return totalPrice;
     }
 
     @Override

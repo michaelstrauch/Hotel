@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
@@ -12,9 +13,9 @@ public class Main {
         guest2.setBirthDate(LocalDate.of(1995, 4, 5));
         System.out.println(guest2 + "\n");
 
-        Room room1 = new Room(1,1,true,true,1000);
-        Room room2 = new Room(1,1,true,true,1000);
-        Room room3 = new Room(3,3,false,true,2400);
+        Room room1 = new Room(1,1,true,true,new BigDecimal(1500));
+        Room room2 = new Room(1,1,false,false,new BigDecimal(1000));
+        Room room3 = new Room(3,3,true,true,new BigDecimal(2000));
 
         BookingManager reservations = new BookingManager();
 
@@ -27,8 +28,22 @@ public class Main {
        reservations.addBooking(reservation2);
 
        reservations.getBookings();
+        System.out.println();
        reservations.getNumberOfWorkingBookings();
+        System.out.println();
        reservations.getAverageGuests();
+        System.out.println();
+       reservations.getTopNHolidayBookings();
+        System.out.println();
+       reservations.printGuestStatistics();
+        System.out.println();
+       reservation1.getBookingLength();
+        System.out.println();
+       reservation2.getBookingLength();
+        System.out.println();
+       reservation1.getTotalPrice();
+        System.out.println();
+       reservation2.getTotalPrice();
 
 
 
