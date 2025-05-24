@@ -3,7 +3,7 @@ import java.util.List;
 
 
 public class BookingManager {
-    private List<Booking> reservations;
+    private final List<Booking> reservations;
 
     public BookingManager() {
         reservations = new ArrayList<>();
@@ -13,18 +13,12 @@ public class BookingManager {
         reservations.add(reservation);
     }
 
-    public void getBooking(int index) {
-        if (index >= 0 && index < reservations.size()) {
-            System.out.println(reservations.get(index));
-        } else {
-            System.out.println("No reservation found at index " + index);
-        }
+    public Booking getBooking(int index) {
+        return reservations.get(index);
     }
 
-    public void getBookings() {
-        for (Booking reservation : reservations) {
-            System.out.println(reservation);
-        }
+    public List<Booking> getBookings() {
+        return new ArrayList<>(reservations);
     }
 
     public void clearBookings() {
@@ -38,7 +32,6 @@ public class BookingManager {
                 count++;
             }
         }
-        System.out.println("Number of Work bookings: " +count);
         return count;
 
     }
@@ -48,20 +41,18 @@ public class BookingManager {
         for (Booking reservation : reservations) {
             averageGuests += reservation.getGuestCount();
         }
-        System.out.println("Average guests per booking: " +(double) averageGuests/reservations.size());
         return (double) averageGuests / reservations.size();
 
     }
 
-    public int getTopNHolidayBookings() {
-        int holidayBookings = 0;
-        for (Booking holidays: reservations) {
-            if (! holidays.isWorkBooking() && holidayBookings <8) {
-                System.out.println(holidays);
-                holidayBookings++;
+    public List<Booking> getTopNHolidayBookings() {
+        List<Booking> holidayBookingList = new ArrayList<>();
+        for (Booking booking: reservations) {
+            if (! booking.isWorkBooking() && holidayBookingList.size() <8) {
+                holidayBookingList.add(booking);
             }
         }
-        return holidayBookings;
+        return holidayBookingList;
     }
 
     public void printGuestStatistics() {
@@ -79,12 +70,10 @@ public class BookingManager {
                 multipleGuest++;
             }
         }
-        System.out.println("Single guest reservations: " + singleGuest);
-        System.out.println("Double guests reservations: " + doubleGuest);
-        System.out.println("Multiple guests reservations: "+ multipleGuest);
+        System.out.println("Statistiky hostů:");
+        System.out.println("Počet rezervací s jedním hostem: " + singleGuest);
+        System.out.println("Počet rezervací se dvěma hosty: " + doubleGuest);
+        System.out.println("Počet rezervací s více hosty: "+ multipleGuest + "\n");
     }
-
-
-
 
 }

@@ -2,63 +2,71 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
-
 public class Main {
-    public static void main(String[] args) {
 
+    public static BookingManager fillBookings() {
+        Guest guest1 = new Guest("Karel","Dvořák", LocalDate.of(1990,5,15));
+        Guest guest2 = new Guest("Karel","Dvořák",LocalDate.of(1979,1,3));
+        Guest guest3 = new Guest("Karolína","Tmavá",LocalDate.of(2000,11,23));
 
-        Guest guest1 = new Guest("Adéla", "Malíková", LocalDate.of(1993,3,13));
-        Guest guest2 = new Guest("Jan", "Dvořáček", LocalDate.of(1995, 5,5));
-
-        guest2.setBirthDate(LocalDate.of(1995, 4, 5));
-        System.out.println(guest2 + "\n");
-
-        Room room1 = new Room(1,1,true,true,new BigDecimal(1500));
-        Room room2 = new Room(1,1,false,false,new BigDecimal(1000));
+        Room room2 = new Room(2,1,false,false,new BigDecimal(1000));
         Room room3 = new Room(3,3,true,true,new BigDecimal(2000));
 
         BookingManager reservations = new BookingManager();
 
-       Booking reservation1 = new Booking(guest1, room1, LocalDate.of(2021,7,19),LocalDate.of(2021,7,26), true);
-       Booking reservation2 = new Booking(guest2, room3, LocalDate.of(2021,9,1),LocalDate.of(2021,9,14), false);
-       reservation2.addGuest(guest1);
+        Booking reservation1 = new Booking(guest1,room3,LocalDate.of(2023,1,6),LocalDate.of(2023,7,6),true);
+        Booking reservation2 = new Booking(guest2,room2,LocalDate.of(2023,7,18),LocalDate.of(2023,7,21),false);
+        Booking reservation3 = new Booking(guest3,room3,LocalDate.of(2023,8,1),LocalDate.of(2023,8,31),true);
+        reservation3.addGuest(guest1);
+
+        reservations.addBooking(reservation1);
+        reservations.addBooking(reservation2);
+        reservations.addBooking(reservation3);
 
 
-       reservations.addBooking(reservation1);
-       reservations.addBooking(reservation2);
+        LocalDate startDate = LocalDate.of(2023,8,1);
+        for (int i = 0; i < 10; i++) {
+            LocalDate endDate = startDate.plusDays(1);
+            reservations.addBooking(new Booking(guest3,room2,startDate,endDate,false));
+            startDate = startDate.plusDays(2);
 
-       reservations.getBookings();
+        }
+
+        return reservations;
+    }
+
+
+    public static void main(String[] args) {
+
+        BookingManager reservations = fillBookings();
+
+        System.out.println("Počet pracovních pobytů: " + reservations.getNumberOfWorkingBookings());
         System.out.println();
-       reservations.getNumberOfWorkingBookings();
+
+        System.out.println("Průměrný počet hostů na rezervaci: " + reservations.getAverageGuests());
         System.out.println();
-       reservations.getAverageGuests();
+
+        System.out.println("Prvních osm rekreačních rezervací:");
+        for (Booking holidayBooking : reservations.getTopNHolidayBookings()) {
+            System.out.println(holidayBooking);
+        }
         System.out.println();
-       reservations.getTopNHolidayBookings();
+
+        reservations.printGuestStatistics();
         System.out.println();
-       reservations.printGuestStatistics();
+
+        for (Booking booking: reservations.getBookings()) {
+            System.out.println(booking.getFormattedSummary());
+        }
         System.out.println();
-       reservation1.getBookingLength();
+
+        System.out.println("Celkový počet rezervací: " + reservations.getBookings().size());
         System.out.println();
-       reservation2.getBookingLength();
-        System.out.println();
-       reservation1.getTotalPrice();
-        System.out.println();
-       reservation2.getTotalPrice();
 
+        Booking secondBooking = reservations.getBooking(1);
+        System.out.println("Rezervace č.2 je zarezervovaná na "+secondBooking.getBookingLength()+ " nocí.");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //a nakonec
+        reservations.clearBookings();
     }
 }
